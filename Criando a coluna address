@@ -1,0 +1,17 @@
+# Importando as bibliotecas necessárias
+import requests
+import pandas as pd
+
+# Definindo a função que obtém o endereço a partir da latitude e longitude
+def get_address_from_lat_lon(lat: float, lon: float) -> str:
+    # Construindo a URL para a API Nominatim do OpenStreetMap
+    url = f"https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat={lat}&lon={lon}"
+    
+    # Fazendo uma requisição GET para a API
+    response = requests.get(url)
+    
+    # Convertendo a resposta em JSON
+    data = response.json()
+    
+    # Extraindo o endereço da resposta JSON
+    address = data["address"]
