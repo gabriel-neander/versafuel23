@@ -1,0 +1,26 @@
+# Primeiro bloco de códigos
+# Importando a ferramenta a ser usada
+import numpy as np
+
+# Definindo as coordenadas da Versa Fuel em radianos
+VersaFuelLat = np.radians(-23.5987711)
+VersaFuelLon = np.radians(-46.6613145)
+
+# Calculando as diferenças de latitude e longitude
+dataset["LatDiff"] = VersaFuelLat - dataset["latitude_radians"]
+dataset["LonDiff"] = VersaFuelLon - dataset["longitude_radians"]
+
+# Aplicando a fórmula de Haversine
+a = (
+    np.sin(dataset["LatDiff"] / 2) ** 2
+    + np.cos(VersaFuelLat)
+    * np.cos(dataset["latitude_radians"])
+    * np.sin(dataset["LonDiff"] / 2) ** 2
+)
+c = 2 * np.arcsin(np.sqrt(a))
+
+# Definindo o raio da Terra em km
+r = 6371
+
+# Calculando a distância e adicionando como nova coluna
+dataset["distance"] = r * c
