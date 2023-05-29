@@ -15,3 +15,15 @@ def get_address_from_lat_lon(lat: float, lon: float) -> str:
     
     # Extraindo o endereço da resposta JSON
     address = data["address"]
+
+    # Obtendo a rua, o número da casa e o bairro do endereço
+    # Se essas informações não estiverem disponíveis, retorna uma string vazia
+    street = address.get("road", "")
+    number = address.get("house_number", "")
+    suburb = address.get("suburb", "")
+    
+    # Retornando o endereço formatado
+    return f"{street}, {number} - {suburb}"
+
+# Aplicando a função em cada linha do dataframe 'dataset' para obter o endereço a partir da latitude e longitude
+dataset["Address"] = dataset.apply(lambda row: get_address_from_lat_lon(row["latitude"], row["longitude"]), axis=1)
