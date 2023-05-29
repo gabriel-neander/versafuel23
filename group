@@ -1,0 +1,22 @@
+# Importando as bibliotecas necessárias
+from sklearn.cluster import DBSCAN
+import pandas as pd
+import numpy as np
+
+# Selecionando as colunas 'latitude' e 'longitude' do dataframe 'dataset' 
+# e convertendo-as em uma matriz de valores
+coords = dataset[['latitude', 'longitude']].values
+
+# Inicializando o algoritmo DBSCAN com um raio de 0.01 para a vizinhança de um ponto (eps) 
+# e o número mínimo de pontos que formam um cluster sendo 5 (min_samples)
+db = DBSCAN(eps=0.01, min_samples=5)
+
+# Treinando o algoritmo DBSCAN com os dados de coordenadas
+db.fit(coords)
+
+# Obtendo os rótulos dos clusters para cada ponto no dataset. 
+# Os pontos que são considerados como ruído pelo algoritmo recebem o rótulo -1
+labels = db.labels_
+
+# Adicionando os rótulos dos clusters como uma nova coluna 'group' no dataframe 'dataset'
+dataset['group'] = labels
