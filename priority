@@ -1,0 +1,11 @@
+# Importando as bibliotecas necessárias
+import pandas as pd
+import numpy as np
+# A função 'pd.cut' é usada para segmentar e classificar os valores dos dados em compartimentos. 
+
+# 'labels' são os rótulos para os compartimentos, que são 'Alta', 'Média', 'Baixa' e 'Muito Baixa' respectivamente.
+
+# O resultado é armazenado na nova coluna 'priority' do dataframe 'dataset'.
+dataset['priority'] = pd.cut(dataset['distance'], 
+                              bins=[0, 2.5, 5, 7.5, np.inf], 
+                              labels=['Alta', 'Média', 'Baixa', 'Muito Baixa'])
